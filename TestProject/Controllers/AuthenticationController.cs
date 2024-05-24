@@ -39,7 +39,7 @@ namespace TestProject.Controllers
             }
 
             var result = _service.LogIn(logIn);
-            return Results.Ok(result);
+            return Results.Ok(result.Values);
         }
 
         [HttpGet("RefreshToken")]

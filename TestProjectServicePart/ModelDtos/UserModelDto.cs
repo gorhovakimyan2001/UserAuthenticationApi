@@ -1,4 +1,6 @@
-﻿namespace TestProjectServicePart.ModelDtos
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TestProjectServicePart.ModelDtos
 {
     public class UserModelDto
     {
@@ -8,6 +10,7 @@
 
         public int Age { get; set; }
 
+        [EmailAddress]
         public string Email { get; set; }
     }
 }

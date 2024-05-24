@@ -7,7 +7,7 @@ using TestProjectDbPart.Data;
 
 #nullable disable
 
-namespace TestProject.Migrations
+namespace TestProjectDbPart.Migrations
 {
     [DbContext(typeof(UserContext))]
     partial class UserContextModelSnapshot : ModelSnapshot

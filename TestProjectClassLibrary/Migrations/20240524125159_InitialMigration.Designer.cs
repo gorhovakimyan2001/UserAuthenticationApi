@@ -8,11 +8,11 @@ using TestProjectDbPart.Data;
 
 #nullable disable
 
-namespace TestProject.Migrations
+namespace TestProjectDbPart.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20240517133745_AllowNull")]
-    partial class AllowNull
+    [Migration("20240524125159_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,25 +24,21 @@ namespace TestProject.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TestProjectDbPart.Models.RoleModel", b =>
+            modelBuilder.Entity("TestProjectDbPart.Models.AuthenticationModel", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<long>("PasswordHash")
+                        .HasColumnType("bigint");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("PasswordSalt")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("Email");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
+                    b.ToTable("Authentications", (string)null);
                 });
 
             modelBuilder.Entity("TestProjectDbPart.Models.UserModel", b =>
@@ -56,6 +52,10 @@ namespace TestProject.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -64,30 +64,9 @@ namespace TestProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
-
                     b.ToTable("Users", (string)null);
-                });
-
-            modelBuilder.Entity("TestProjectDbPart.Models.UserModel", b =>
-                {
-                    b.HasOne("TestProjectDbPart.Models.RoleModel", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("TestProjectDbPart.Models.RoleModel", b =>
-                {
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

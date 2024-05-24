@@ -2,6 +2,7 @@
 using TestProjectServicePart.Services;
 using TestProjectServicePart.ModelDtos;
 using TestProjectDbPart.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TestProject.Controllers
 {
